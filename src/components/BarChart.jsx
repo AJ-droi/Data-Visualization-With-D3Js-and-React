@@ -1,5 +1,5 @@
 
-import React, { useEffect, useRef } from 'react';
+import React, { useRef } from 'react';
 import * as d3 from 'd3';
 
 const BarChart = ({ data }) => {
@@ -9,9 +9,10 @@ const BarChart = ({ data }) => {
 
     data.map((item) => {
         wordCount.push(item.wordcount)
+        return wordCount
     })
 
-    const handleSVG = () => {
+
         const svg = d3.select(svgRef.current);
       
         const width = 500,
@@ -80,13 +81,10 @@ const BarChart = ({ data }) => {
           .attr("y", margin.left)
           .attr("transform", "rotate(-90)")
           .text("WordCount");
-    }
+    
 
 
 
-    useEffect(() => {
-       handleSVG()
-      }, [wordCount]);
       
       
       

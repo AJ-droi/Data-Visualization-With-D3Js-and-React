@@ -5,6 +5,12 @@ import PieChart from "../components/PieChart";
 const Dashboard = () => {
   const [wikiData, setWikiData] = useState([]);
   const [search, setSearch] = useState("");
+  const [input, setInput] = useState("");
+
+ 
+
+
+  
   const fetchData = async (value) => {
     const response = await fetch(
       `https://en.wikipedia.org/w/api.php?action=query&format=json&list=search&formatversion=2&srsearch=${value}&origin=*`,
@@ -20,13 +26,25 @@ const Dashboard = () => {
 
     setWikiData(data.query.search);
 
-    setSearch("");
   };
+
+  const handleChange = (e) => {
+    setInput(e.target.value);
+  };
+
+  const handleSubmit = async(e) => {
+    e.preventDefault();
+    setSearch(input);
+    await fetchData(search)
+    setInput("")
+  };
+
+
 
   useEffect(() => {
     fetchData(search);
-  }, [wikiData]);
-  console.log(wikiData);
+  }, [search, input]);
+
 
   return (
     <div className="bg-[#FAFAFD] ">
@@ -35,13 +53,14 @@ const Dashboard = () => {
         <input
           type="text"
           className="border-2 border-[#01058A] rounded-md px-[5%] py-[2%] w-[50%] text-[#01058A] text-center"
-          value={search}
+          value={input}
           placeholder="Search"
-          onChange={(e) => setSearch(e.target.value)}
+          onChange={handleChange}
         />
         <button
+          type="submit"
           className="bg-[#01058A] text-[#fff] px-[5%] py-[2%] rounded-md"
-          onClick={() => fetchData(search)}
+          onClick={handleSubmit}
         >
           Search
         </button>
