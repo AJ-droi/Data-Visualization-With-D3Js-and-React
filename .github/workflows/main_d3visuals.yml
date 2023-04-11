@@ -53,4 +53,4 @@ jobs:
           app-name: 'd3visuals'
           slot-name: 'Production'
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_0C9D6B0991264E1296FF806FC0BBAB13 }}
-          package: .
+          package: ./
